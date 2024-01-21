@@ -1,0 +1,936 @@
+IMAGE REFRENCE
+https://github.com/ErNehaSharma/CodeClause-/blob/main/moon.png
+https://github.com/ErNehaSharma/CodeClause-/blob/main/sun.png
+
+<-----------------------------------------------------------------------------------index.html----------------------------------------------------------------------------------------------->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>Language Translater</title>
+  </head>
+  <body>
+    <div class="mode">
+      <label class="toggle" for="dark-mode-btn">
+        <div class="toggle-track">
+          <input type="checkbox" class="toggle-checkbox" id="dark-mode-btn" />
+          <span class="toggle-thumb"></span>
+          <img src="images/sun.png" alt="" />
+          <img src="images/moon.png" alt="" />
+        </div>
+      </label>
+    </div>
+    <div class="container">
+      <div class="card input-wrapper">
+        <div class="from">
+          <span class="heading">From :</span>
+          <div class="dropdown-container" id="input-language">
+            <div class="dropdown-toggle">
+              <ion-icon name="globe-outline"></ion-icon>
+              <span class="selected" data-value="auto">Auto Detect</span>
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </div>
+            <ul class="dropdown-menu">
+              <li class="option active">DropDown Menu Item 1</li>
+              <li class="option">DropDown Menu Item 2</li>
+            </ul>
+          </div>
+        </div>
+        <div class="text-area">
+          <textarea
+            id="input-text"
+            cols="30"
+            rows="10"
+            placeholder="Enter your text here">
+        </textarea>
+          <div class="chars"><span id="input-chars">0</span> / 5000</div>
+        </div>
+        <div class="card-bottom">
+          <p>Or choose your document!</p>
+          <label for="upload-document">
+            <span id="upload-title">Choose File</span>
+            <ion-icon name="cloud-upload-outline"></ion-icon>
+            <input type="file" id="upload-document" hidden />
+          </label>
+        </div>
+      </div>
+
+      <div class="center">
+        <div class="swap-position">
+          <ion-icon name="swap-horizontal-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="card output-wrapper">
+        <div class="to">
+          <span class="heading">To :</span>
+          <div class="dropdown-container" id="output-language">
+            <div class="dropdown-toggle">
+              <ion-icon name="globe-outline"></ion-icon>
+              <span class="selected" data-value="en">Englsih</span>
+              <ion-icon name="chevron-down-outline"></ion-icon>
+            </div>
+            <ul class="dropdown-menu">
+              <li class="option active">DropDown Menu Item 1</li>
+              <li class="option">DropDown Menu Item 2</li>
+            </ul>
+          </div>
+        </div>
+        <textarea
+          id="output-text"
+          cols="30"
+          rows="10"
+          placeholder="Translated text will appear here"disabled>
+        </textarea>
+        <div class="card-bottom">
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Want to Download <br> Download as a document!</p>
+          <button id="download-btn">
+            <span>Download</span>
+            <ion-icon name="cloud-download-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="languages.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
+
+<----------------------------------------------------------------------------------------style.css-------------------------------------------------------------------------------------->
+:root {
+    --primary-color: #356aff;
+    --bg-color: #f5f5f5;
+    --light-bg-color: #fff;
+    --text-color: #111116;
+    --light-text-color: #cdccd1;
+    --primary-text-color: #fff;
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    border-radius: 30px;
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 30px;
+    background: var(--primary-color);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--bg-color);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+  }
+  body.dark {
+    --bg-color: #111116;
+    --light-bg-color: #1c1b20;
+    --text-color: #fff;
+    --light-text-color: #58575c;
+  }
+  .container {
+    position: relative;
+    width: 1200px;
+    padding: 0 20px;
+    display: flex;
+    gap: 10px;
+  }
+  .container .card {
+    flex: 1;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: var(--light-bg-color);
+  }
+  .container .card .from,
+  .container .card .to {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .container .card .from {
+    margin-right: 20px;
+  }
+  .container .card .to {
+    margin-left: 20px;
+  }
+  .container .card .heading {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--light-text-color);
+    white-space: nowrap;
+  }
+  .dropdown-container {
+    position: relative;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .dropdown-container .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 30px;
+    background-color: var(--bg-color);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .dropdown-container .dropdown-toggle span {
+    flex: 1;
+    margin-left: 10px;
+  }
+  .dropdown-container .dropdown-toggle ion-icon {
+    font-size: 20px;
+    transition: transform 0.3s ease;
+  }
+  .dropdown-container.active .dropdown-toggle {
+    border-radius: 20px 20px 0 0;
+  }
+  .dropdown-container.active .dropdown-toggle ion-icon:last-child {
+    transform: rotate(180deg);
+  }
+  .dropdown-container .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+    display: none;
+    padding: 20px;
+    z-index: 1;
+    list-style: none;
+    flex-direction: column;
+    background-color: var(--bg-color);
+    transition: all 1s;
+    border-radius: 0 0 20px 20px;
+  }
+  .dropdown-container .dropdown-menu::-webkit-scrollbar {
+    display: none;
+  }
+  .dropdown-container.active .dropdown-menu {
+    display: flex;
+  }
+  
+  .dropdown-container .dropdown-menu li {
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-bottom: 1px solid var(--light-bg-color);
+    transition: all 0.3s ease;
+  }
+  .dropdown-container .dropdown-menu li:hover {
+    background-color: var(--light-bg-color);
+  }
+  .dropdown-container .dropdown-menu li.active {
+    color: var(--primary-text-color);
+    background-color: var(--primary-color);
+  }
+  .container .text-area {
+    position: relative;
+  }
+  .container textarea {
+    width: 100%;
+    padding: 20px;
+    margin: 10px 0;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+  }
+  .container .text-area .chars {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    font-size: 0.8rem;
+    color: var(--light-text-color);
+  }
+  .container .center {
+    position: relative;
+  }
+  .swap-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 5px solid var(--bg-color);
+    transition: all 0.3s ease;
+    color: var(--primary-text-color);
+    background-color: var(--primary-color);
+  }
+  .swap-position ion-icon {
+    font-size: 25px;
+  }
+  .swap-position:hover {
+    transform: translateX(-50%) scale(1.1);
+  }
+  .card-bottom {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 20px;
+    border-top: 2px solid var(--bg-color);
+  }
+  .card-bottom p {
+    margin-bottom: 20px;
+  }
+  .card-bottom label {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+    cursor: pointer;
+    border-radius: 30px;
+    background-color: var(--bg-color);
+  }
+  .card-bottom label:hover {
+    color: var(--primary-text-color);
+    background-color: var(--primary-color);
+  }
+  .card-bottom span {
+    font-size: 12px;
+    pointer-events: none;
+  }
+  .card-bottom ion-icon {
+    font-size: 20px;
+  }
+  
+  .card-bottom button {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 0 20px;
+    border-radius: 30px;
+    border: none;
+    outline: none;
+    color: var(--text-color);
+    cursor: pointer;
+    background-color: var(--bg-color);
+  }
+  .card-bottom button:hover {
+    color: var(--primary-text-color);
+    background-color: var(--primary-color);
+  }
+  
+  .mode {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1;
+  }
+  .toggle {
+    position: relative;
+    cursor: pointer;
+  }
+  .toggle-track {
+    width: 24px;
+    height: 50px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 3px 0;
+    justify-content: space-between;
+    border: 1px solid var(--light-text-color);
+    background-color: var(--light-bg-color);
+    transition: all 0.2s ease;
+  }
+  .toggle-checkbox {
+    display: none;
+  }
+  .toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    transition: all 0.5s;
+  }
+  .toggle input:checked ~ .toggle-thumb {
+    transform: translateY(25px);
+  }
+  .toggle img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* media quiries */
+  @media (max-width: 800px) {
+    .container {
+      width: 100%;
+      margin-top: 20px;
+      flex-direction: column;
+    }
+    .container .card {
+      width: 100%;
+    }
+    .container .card .from {
+      margin-right: 0;
+    }
+    .container .card .to {
+      margin-left: 0;
+    }
+    .container .card .from,
+    .container .card .to {
+      flex-direction: column;
+    }
+  
+    .swap-position {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .swap-position:hover {
+      transform: translate(-50%, -50%) scale(1.1);
+    }
+    .swap-position ion-icon {
+      transform: rotate(90deg);
+    }
+  }
+
+<----------------------------------------------------------------------------------------languages.js------------------------------------------------------------------------------------>
+const languages = [
+    {
+      no: "0",
+      name: "Auto",
+      native: "Detect",
+      code: "auto",
+    },
+    {
+      no: "1",
+      name: "Afrikaans",
+      native: "Afrikaans",
+      code: "af",
+    },
+    {
+      no: "2",
+      name: "Albanian",
+      native: "Shqip",
+      code: "sq",
+    },
+    {
+      no: "3",
+      name: "Arabic",
+      native: "عربي",
+      code: "ar",
+    },
+    {
+      no: "4",
+      name: "Armenian",
+      native: "Հայերէն",
+      code: "hy",
+    },
+    {
+      no: "5",
+      name: "Azerbaijani",
+      native: "آذربایجان دیلی",
+      code: "az",
+    },
+    {
+      no: "6",
+      name: "Basque",
+      native: "Euskara",
+      code: "eu",
+    },
+    {
+      no: "7",
+      name: "Belarusian",
+      native: "Беларуская",
+      code: "be",
+    },
+    {
+      no: "8",
+      name: "Bulgarian",
+      native: "Български",
+      code: "bg",
+    },
+    {
+      no: "9",
+      name: "Catalan",
+      native: "Català",
+      code: "ca",
+    },
+    {
+      no: "10",
+      name: "Chinese (Simplified)",
+      native: "中文简体",
+      code: "zh-CN",
+    },
+    {
+      no: "11",
+      name: "Chinese (Traditional)",
+      native: "中文繁體",
+      code: "zh-TW",
+    },
+    {
+      no: "12",
+      name: "Croatian",
+      native: "Hrvatski",
+      code: "hr",
+    },
+    {
+      no: "13",
+      name: "Czech",
+      native: "Čeština",
+      code: "cs",
+    },
+    {
+      no: "14",
+      name: "Danish",
+      native: "Dansk",
+      code: "da",
+    },
+    {
+      no: "15",
+      name: "Dutch",
+      native: "Nederlands",
+      code: "nl",
+    },
+    {
+      no: "16",
+      name: "English",
+      native: "English",
+      code: "en",
+    },
+    {
+      no: "17",
+      name: "Estonian",
+      native: "Eesti keel",
+      code: "et",
+    },
+    {
+      no: "18",
+      name: "Filipino",
+      native: "Filipino",
+      code: "tl",
+    },
+    {
+      no: "19",
+      name: "Finnish",
+      native: "Suomi",
+      code: "fi",
+    },
+    {
+      no: "20",
+      name: "French",
+      native: "Français",
+      code: "fr",
+    },
+    {
+      no: "21",
+      name: "Galician",
+      native: "Galego",
+      code: "gl",
+    },
+    {
+      no: "22",
+      name: "Georgian",
+      native: "ქართული",
+      code: "ka",
+    },
+    {
+      no: "23",
+      name: "German",
+      native: "Deutsch",
+      code: "de",
+    },
+    {
+      no: "24",
+      name: "Greek",
+      native: "Ελληνικά",
+      code: "el",
+    },
+    {
+      no: "25",
+      name: "Haitian Creole",
+      native: "Kreyòl ayisyen",
+      code: "ht",
+    },
+    {
+      no: "26",
+      name: "Hebrew",
+      native: "עברית",
+      code: "iw",
+    },
+    {
+      no: "27",
+      name: "Hindi",
+      native: "हिन्दी",
+      code: "hi",
+    },
+    {
+      no: "28",
+      name: "Hungarian",
+      native: "Magyar",
+      code: "hu",
+    },
+    {
+      no: "29",
+      name: "Icelandic",
+      native: "Íslenska",
+      code: "is",
+    },
+    {
+      no: "30",
+      name: "Indonesian",
+      native: "Bahasa Indonesia",
+      code: "id",
+    },
+    {
+      no: "31",
+      name: "Irish",
+      native: "Gaeilge",
+      code: "ga",
+    },
+    {
+      no: "32",
+      name: "Italian",
+      native: "Italiano",
+      code: "it",
+    },
+    {
+      no: "33",
+      name: "Japanese",
+      native: "日本語",
+      code: "ja",
+    },
+    {
+      no: "34",
+      name: "Korean",
+      native: "한국어",
+      code: "ko",
+    },
+    {
+      no: "35",
+      name: "Latvian",
+      native: "Latviešu",
+      code: "lv",
+    },
+    {
+      no: "36",
+      name: "Lithuanian",
+      native: "Lietuvių kalba",
+      code: "lt",
+    },
+    {
+      no: "37",
+      name: "Macedonian",
+      native: "Македонски",
+      code: "mk",
+    },
+    {
+      no: "38",
+      name: "Malay",
+      native: "Malay",
+      code: "ms",
+    },
+    {
+      no: "39",
+      name: "Maltese",
+      native: "Malti",
+      code: "mt",
+    },
+    {
+      no: "40",
+      name: "Norwegian",
+      native: "Norsk",
+      code: "no",
+    },
+    {
+      no: "41",
+      name: "Persian",
+      native: "فارسی",
+      code: "fa",
+    },
+    {
+      no: "42",
+      name: "Polish",
+      native: "Polski",
+      code: "pl",
+    },
+    {
+      no: "43",
+      name: "Portuguese",
+      native: "Português",
+      code: "pt",
+    },
+    {
+      no: "44",
+      name: "Romanian",
+      native: "Română",
+      code: "ro",
+    },
+    {
+      no: "45",
+      name: "Russian",
+      native: "Русский",
+      code: "ru",
+    },
+    {
+      no: "46",
+      name: "Serbian",
+      native: "Српски",
+      code: "sr",
+    },
+    {
+      no: "47",
+      name: "Slovak",
+      native: "Slovenčina",
+      code: "sk",
+    },
+    {
+      no: "48",
+      name: "Slovenian",
+      native: "Slovensko",
+      code: "sl",
+    },
+    {
+      no: "49",
+      name: "Spanish",
+      native: "Español",
+      code: "es",
+    },
+    {
+      no: "50",
+      name: "Swahili",
+      native: "Kiswahili",
+      code: "sw",
+    },
+    {
+      no: "51",
+      name: "Swedish",
+      native: "Svenska",
+      code: "sv",
+    },
+    {
+      no: "52",
+      name: "Thai",
+      native: "ไทย",
+      code: "th",
+    },
+    {
+      no: "53",
+      name: "Turkish",
+      native: "Türkçe",
+      code: "tr",
+    },
+    {
+      no: "54",
+      name: "Ukrainian",
+      native: "Українська",
+      code: "uk",
+    },
+    {
+      no: "55",
+      name: "Urdu",
+      native: "اردو",
+      code: "ur",
+    },
+    {
+      no: "56",
+      name: "Vietnamese",
+      native: "Tiếng Việt",
+      code: "vi",
+    },
+    {
+      no: "57",
+      name: "Welsh",
+      native: "Cymraeg",
+      code: "cy",
+    },
+    {
+      no: "58",
+      name: "Yiddish",
+      native: "ייִדיש",
+      code: "yi",
+    },
+  ];
+
+<-------------------------------------------------------------------------------------------script.js------------------------------------------------------------------------------------>
+const dropdowns = document.querySelectorAll(".dropdown-container"),
+  inputLanguageDropdown = document.querySelector("#input-language"),
+  outputLanguageDropdown = document.querySelector("#output-language");
+
+function populateDropdown(dropdown, options) {
+  dropdown.querySelector("ul").innerHTML = "";
+  options.forEach((option) => {
+    const li = document.createElement("li");
+    const title = option.name + " (" + option.native + ")";
+    li.innerHTML = title;
+    li.dataset.value = option.code;
+    li.classList.add("option");
+    dropdown.querySelector("ul").appendChild(li);
+  });
+}
+
+populateDropdown(inputLanguageDropdown, languages);
+populateDropdown(outputLanguageDropdown, languages);
+
+dropdowns.forEach((dropdown) => {
+  dropdown.addEventListener("click", (e) => {
+    dropdown.classList.toggle("active");
+  });
+
+  dropdown.querySelectorAll(".option").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      //remove active class from current dropdowns
+      dropdown.querySelectorAll(".option").forEach((item) => {
+        item.classList.remove("active");
+      });
+      item.classList.add("active");
+      const selected = dropdown.querySelector(".selected");
+      selected.innerHTML = item.innerHTML;
+      selected.dataset.value = item.dataset.value;
+      translate();
+    });
+  });
+});
+document.addEventListener("click", (e) => {
+  dropdowns.forEach((dropdown) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("active");
+    }
+  });
+});
+
+const swapBtn = document.querySelector(".swap-position"),
+  inputLanguage = inputLanguageDropdown.querySelector(".selected"),
+  outputLanguage = outputLanguageDropdown.querySelector(".selected"),
+  inputTextElem = document.querySelector("#input-text"),
+  outputTextElem = document.querySelector("#output-text");
+
+swapBtn.addEventListener("click", (e) => {
+  const temp = inputLanguage.innerHTML;
+  inputLanguage.innerHTML = outputLanguage.innerHTML;
+  outputLanguage.innerHTML = temp;
+
+  const tempValue = inputLanguage.dataset.value;
+  inputLanguage.dataset.value = outputLanguage.dataset.value;
+  outputLanguage.dataset.value = tempValue;
+
+  //swap text
+  const tempInputText = inputTextElem.value;
+  inputTextElem.value = outputTextElem.value;
+  outputTextElem.value = tempInputText;
+
+  translate();
+});
+
+function translate() {
+  const inputText = inputTextElem.value;
+  const inputLanguage =
+    inputLanguageDropdown.querySelector(".selected").dataset.value;
+  const outputLanguage =
+    outputLanguageDropdown.querySelector(".selected").dataset.value;
+  const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
+    inputText
+  )}`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+      outputTextElem.value = json[0].map((item) => item[0]).join("");
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+inputTextElem.addEventListener("input", (e) => {
+  //limit input to 5000 characters
+  if (inputTextElem.value.length > 5000) {
+    inputTextElem.value = inputTextElem.value.slice(0, 5000);
+  }
+  translate();
+});
+
+const uploadDocument = document.querySelector("#upload-document"),
+  uploadTitle = document.querySelector("#upload-title");
+
+uploadDocument.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (
+    file.type === "application/pdf" ||
+    file.type === "text/plain" ||
+    file.type === "application/msword" ||
+    file.type ===
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+  ) {
+    uploadTitle.innerHTML = file.name;
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = (e) => {
+      inputTextElem.value = e.target.result;
+      translate();
+    };
+  } else {
+    alert("Please upload a valid file");
+  }
+});
+
+const downloadBtn = document.querySelector("#download-btn");
+
+downloadBtn.addEventListener("click", (e) => {
+  const outputText = outputTextElem.value;
+  const outputLanguage =
+    outputLanguageDropdown.querySelector(".selected").dataset.value;
+  if (outputText) {
+    const blob = new Blob([outputText], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.download = `translated-to-${outputLanguage}.txt`;
+    a.href = url;
+    a.click();
+  }
+});
+
+const darkModeCheckbox = document.getElementById("dark-mode-btn");
+
+darkModeCheckbox.addEventListener("change", () => {
+  document.body.classList.toggle("dark");
+});
+
+const inputChars = document.querySelector("#input-chars");
+
+inputTextElem.addEventListener("input", (e) => {
+  inputChars.innerHTML = inputTextElem.value.length;
+});
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
